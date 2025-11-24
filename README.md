@@ -1,75 +1,92 @@
 # 365 Platform — Student Engagement Analysis (Q4 2021 vs Q4 2022)
 
-**Tools:** Excel · Descriptive Statistics · Hypothesis Testing · Confidence Intervals  
-**Files:** raw data and result spreadsheets are included in this repo.
+**Tools:** Excel · Descriptive Statistics · Hypothesis Testing  
+**Focus:** Low-engagement users (1–100 minutes in 2021) · Free vs Paid users · US vs India comparison
+
+This project analyzes whether new gamification features (XP system, streaks, leaderboards, in-app coins) led to higher student engagement between **Q4 2021** and **Q4 2022**.
 
 ---
 
-## Project Summary
-This analysis evaluates whether new platform gamification features (XP system, streaks, leaderboards, in-app coins) corresponded with measurable increases in student engagement between Q4 2021 and Q4 2022. The focus is on **low-engagement users** (students who watched **1–100 minutes** in Q4 2021) because they represent the largest growth opportunity.
+## 📊 Key Insights (from the raw dataset)
+
+### **Paid-plan low-engagement users**
+- **Mean:** 33.8 → 273.0  
+- **Median:** 26.3 → 40.3  
+- **Std deviation:** 28.2 → 854.6  
+**Insight:** Strong improvement. Massive SD increase shows many students returned with extremely high usage in 2022.
+
+### **Free-plan low-engagement users**
+- **Mean:** 25.4 → 117.6  
+- **Median:** 14.2 → 11.8  
+- **Std deviation:** 26.2 → 468.9  
+**Insight:** Mean increases sharply, but median decreases — a strongly right-skewed distribution with heavy outliers.
 
 ---
 
-## Key Findings (numbers computed from data)
+## ✔️ Statistical Tests (Summary)
 
-### Paid-plan (low-engagement users)
-- **Mean:** Q4 2021 = **33.8 min** → Q4 2022 = **273.0 min**  
-- **Median:** Q4 2021 = **26.3 min** → Q4 2022 = **40.3 min**  
-- **Standard deviation:** Q4 2021 = **28.2** → Q4 2022 = **854.6**  
-**Interpretation:** Strong year-over-year uplift in average usage for paid users; high SD in 2022 shows growth is driven in part by some users with very large watch times.
-
-### Free-plan (low-engagement users)
-- **Mean:** Q4 2021 = **25.4 min** → Q4 2022 = **117.6 min**  
-- **Median:** Q4 2021 = **14.2 min** → Q4 2022 = **11.8 min**  
-- **Standard deviation:** Q4 2021 = **26.2** → Q4 2022 = **468.9**  
-**Interpretation:** Mean rises substantially while median falls slightly — distribution is strongly right-skewed in 2022 (a few heavy users drive the mean).
+- Two-sample **t-tests (unequal variances)** show **significant** increase in 2022 minutes for both free and paid students.  
+- Skewness & kurtosis confirm **heavy right skew and high kurtosis**, especially in 2022.  
+- Regional comparison (US vs India, 2022 free users) indicates **India has slightly higher average minutes watched**.  
+- Confidence intervals show wider spread in 2022 due to extreme high-engagement students.
 
 ---
 
-## Statistical Tests & Confidence
-- **Two-sample t-tests (unequal variances)** were used to compare minutes-watched between 2021 and 2022, run separately for free-plan and paid-plan groups (Task 4). Tests indicate the increase in minutes watched in 2022 is statistically significant for both groups.  
-- **Regional comparison (Task 5):** Directional hypothesis tests (two-sample t-tests, unequal variances) comparing 2022 free-plan users in the **US vs India** show **slightly higher average engagement in India**, suggesting potential localization opportunities.  
-- **Distribution checks:** Skewness and kurtosis were computed for each group to validate interpretation of mean vs median — results show heavy right skew and high kurtosis in 2022, consistent with the mean being inflated by outliers.
+## 📁 Files in This Repository
+
+- **Engagement Project.xlsx** — Raw dataset for all tasks.  
+- **/images** — Contains screenshots of:
+  - Descriptive statistics (2021 & 2022)
+  - Confidence intervals
+  - T-test results (paid/free)
+  - Regional test (US vs India)
 
 ---
 
-## Files in this repository
-- `Engagement Project.xlsx` — raw dataset and Task 1–3 sheets.  
-  Local path (uploaded): `/mnt/data/Engagement Project.xlsx`  
-- `Hypothesis Testing - task 4.xlsx` — hypothesis testing outputs for 2021 vs 2022.  
-  Local path: `/mnt/data/Hypothesis Testing - task 4.xlsx`  
-- `Hypothesis Testing - task 5.xlsx` — regional (US vs India) test outputs.  
-  Local path: `/mnt/data/Hypothesis Testing - task 5.xlsx`
+## 🖼️ Screenshots
 
-> Once pushed to GitHub, these files will appear in your repo root and become downloadable.
 
----
 
-## How to reproduce (Excel)
-1. Open **`Engagement Project.xlsx`** → go to **Task 1 and 2**.  
-2. Filter students with `minutes_watched_21` between **1 and 100**. Separate paid and free via `paid` column.  
-3. Compute `AVERAGE`, `MEDIAN`, and `STDEV.S` on `minutes_watched_21` and `minutes_watched_22`.  
-4. Compute skewness and kurtosis with:  
-   - `SKEW(range)`  
-   - `KURT(range)`  
-5. Build 95% confidence intervals using:  
-   - `mean ± T.INV.2T(0.05, df) * (sd / SQRT(n))`  
-6. Hypothesis tests (Task 4 & 5): use **Data Analysis → t-Test: Two-Sample Assuming Unequal Variances**, or `T.TEST` with type=3.
+```markdown
+![Q4 2021 and 2022 Stats](images/Descriptive statistics.png)
+![Paid T-test](images/ttest_paid.png)
+![Free T-test](images/ttest_free.png)
+```
 
 ---
 
-## Short conclusion
-Both paid and free low-engagement users showed **substantial average increases** in minutes watched in Q4 2022 vs Q4 2021. Paid users show the clearest and most consistent uplift. Free users' mean increases are driven mainly by heavy outliers. Overall, evidence supports the idea that the platform’s gamification features helped raise engagement, and regional differences point toward meaningful localization opportunities.
+## 🔍 How to Reproduce (Excel Workflow)
+
+1. Filter students with `minutes_watched_21` between **1 and 100**.  
+2. Split into **paid (1)** and **free (0)** groups.  
+3. Calculate:
+   - `AVERAGE()`
+   - `MEDIAN()`
+   - `STDEV.S()`
+   - `SKEW()`
+   - `KURT()`
+4. Build 95% confidence intervals:  
+   `mean ± T.INV.2T(0.05, df) * (sd / SQRT(n))`
+5. Run **t-tests (unequal variances)** for:
+   - 2021 vs 2022 (paid)
+   - 2021 vs 2022 (free)
+   - US vs India (free, 2022)
 
 ---
 
-## Notes / Next steps
-- Add visualizations (histograms, boxplots) for distribution behavior.  
-- Investigate retention cohorts over time.  
-- Run robust statistics (trimmed mean, winsorized SD) to confirm conclusions.
+## 📌 Conclusion
+
+- Engagement increased for both **paid** and **free** low-engagement users in 2022.  
+- Paid users showed the **strongest and most consistent** improvement.  
+- Free users' improvement was driven by a handful of very active students (right-skewed).  
+- Statistical evidence suggests the platform’s new gamification features **positively impacted engagement**.  
+- Regional insights indicate opportunities for **India-focused content and localization**.
 
 ---
 
-## Contact
-Feel free to explore the Excel files or request visualizations / Python replication as needed.
+## ⭐ Author
+Analysis performed using Excel on the official engagement dataset.  
+Screenshots and raw dataset included for reproducibility.
+
+
 
