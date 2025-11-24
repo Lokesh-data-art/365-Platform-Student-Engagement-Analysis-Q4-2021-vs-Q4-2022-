@@ -48,9 +48,10 @@ This project analyzes whether new gamification features (XP system, streaks, lea
 
 
 ```markdown
-![Q4 2021 and 2022 Stats](images/Descriptive statistics.png)
+![Q4 2021 and 2022 Stats](images/Descriptive_21_22.png)
 ![Paid T-test](images/ttest_paid.png)
 ![Free T-test](images/ttest_free.png)
+![US vs India regional test](images/regional_test.png)
 ```
 
 ---
